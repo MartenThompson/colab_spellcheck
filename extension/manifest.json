@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Colab Spellcheck",
+  "description": "check your spelling in Google Colab",
+  "version": "0.0.1",
+  "icons": {"128": "icon_128.png"},
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab"]
+}
