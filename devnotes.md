@@ -1,4 +1,12 @@
 
+### Things I have learned
+
+The colab html is a mess
+
+* we want cells with classes `"cell text"` and `"cell text focused"`
+* They are absolutely burried. 
+
+
 
 
 ### Local Testing in Chrome
