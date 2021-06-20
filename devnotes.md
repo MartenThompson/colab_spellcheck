@@ -19,6 +19,7 @@ The extension should automatically refresh on file updates.
 
 
 
-### Deploying to Chrome Store
+### Documentation
 
-1. Go to the [chrome web store docs](https://developer.chrome.com/docs/webstore/publish/)
+1. Manifest v3 updates [here](https://developer.chrome.com/docs/extensions/mv3/intro/)
+1. To deploy, go to the [chrome web store docs](https://developer.chrome.com/docs/webstore/publish/)

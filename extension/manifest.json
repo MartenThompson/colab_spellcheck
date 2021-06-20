@@ -4,9 +4,15 @@
   "description": "check your spelling in Google Colab",
   "version": "0.0.1",
   "icons": {"128": "icon_128.png"},
-  "browser_action": {
+  "action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab"],
+  "content_scripts" : [
+    {
+      "matches": ["https://colab.research.google.com/*"],
+      "js": ["inject.js"]
+    }
+  ]
 }
