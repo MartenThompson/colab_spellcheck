@@ -3,7 +3,8 @@
 // Listen for popup.js to send request
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   //alert(request)
-  var whole_cell = document.getElementsByClassName("cell text focused");
+  var whole_cell = document.querySelector(".cell.text.focused");
+  var markdown = whole_cell.querySelector(".markdown>span>p").textContent
   //var main_content = whole_cell.querySelector('.main-content');
   //var editor_content = main_content.querySelector('.editor-container');
   //var text_div = editor_content.querySelector('.text-top-div');
@@ -15,6 +16,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   //  x[i].style.backgroundColor = "red";
   //}
   sendResponse({message: "responding with all content",
-                text_content: whole_cell
+                text_content: markdown
               })
 })
