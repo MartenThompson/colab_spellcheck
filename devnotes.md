@@ -12,7 +12,7 @@ The colab html is a mess
 	cells with “cell”, “text”, and “focused” classes”:
 		let celltextfocused = document.querySelectorAll(‘.cell.text.focused’)
     
-++ Might be worth only looking at the 'cell text focused' cell only initially. That way user-defined names are repeatedly being flagged
+++ Might be worth only looking at the 'cell text focused' cell only initially. That way user-defined names are repeatedly being flagged. We should catch the exception that is thrown whenever the user does not have a text cell active.
 
 ### Approach
 
