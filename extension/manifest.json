@@ -1,11 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Colab Spellcheck",
-  "description": "check your spelling in Google Colab",
-  "version": "0.0.1",
-  "icons": {"128": "images/app_icon_128.png"},
+  "description": "checks your spelling in Google Colab",
+  "version": "0.1.0",
+  "icons": {"16": "images/app_icon_16.png",
+            "32": "images/app_icon_32.png",
+            "48": "images/app_icon_48.png",
+            "128": "images/app_icon_128.png"},
   "action": {
-    "default_icon": "images/app_icon_19.png",
+    "default_icon": {
+      "16": "images/app_icon_16.png",
+      "24": "images/app_icon_24.png",
+      "32": "images/app_icon_32.png"
+    },
+    "default_title": "colab spellcheck",
     "default_popup": "popup.html"
   },
   "permissions": ["activeTab", "storage"],
