@@ -1,0 +1,90 @@
+html, body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  min-height: 180px;
+  padding: 0;
+  width: 384px;
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0;
+  color: #F59C09;
+}
+
+img {
+  width: 30px;
+}
+
+.modal-header {
+  align-items: center;
+  border-bottom: 0.5px solid #ccc;
+}
+
+.modal-content {
+  padding: 12px;
+  padding-bottom: 0;
+}
+
+.logo-icon {
+  vertical-align: text-bottom;
+  margin-right: 12px;
+}
+
+.flat_button {
+  background-color: #F59C09;
+  border: 2px solid #F59C09;
+  color: white;
+  border-radius: 3px;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.settings-button {
+  width: 30px;
+  vertical-align: text-bottom;
+  float: right;
+}
+
+#settings_pane {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.version {
+  color: #444;
+  font-size: 18px;
+  opacity: 0.25;
+}
+
+table {
+  width: 100%;
+  /*border-top: 1px solid #ccc;*/
+}
+
+th {
+  color: black;
+  text-align: left;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+tr {
+  color: #808B96;
+}
+
+#footer_right {
+  text-align:right
+}
+
+.footer_link {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 0.75em;
+}
