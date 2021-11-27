@@ -58,7 +58,8 @@ function make_html(spell_check_api_response) {
   suggestions.forEach((item, i) => {
     if (item.shortMessage == 'Spelling mistake') {
       let user_phrase = item.context.text;
-      let word = user_phrase.slice(item.offset, item.offset+item.length);
+
+      let word = user_phrase.slice(item.context.offset, item.context.offset+item.context.length);
       //console.log(word);
 
       html += `<tr>`;
