@@ -21,7 +21,6 @@ function spellCheckClick() {
   })
 }
 
-
 function xmlhttp_request(user_phrase, api_key_value) {
   // for testing, uncomment this, remove rest of function
   // and add response = spell_check_api_response; to make_html()
@@ -53,59 +52,75 @@ function make_html(spell_check_api_response) {
   let suggestions = response.matches;
 
   let html = '';
-  html += `<table>`
-  html += `<tr><th>word</th> <th>suggestions</th></tr>`
+
+  let errors_present = false;
   suggestions.forEach((item, i) => {
     if (item.shortMessage == 'Spelling mistake') {
-      let user_phrase = item.context.text;
-
-      let word = user_phrase.slice(item.context.offset, item.context.offset+item.context.length);
-      //console.log(word);
-
-      html += `<tr>`;
-      html += `<td>${word}</td> `;
-
-      for (const [index, el] of item.replacements.entries()) {
-        //console.log(el);
-        if (index == 0) html += `<td>`;
-        if (index > 0) html += `, `;
-
-        html += `${el.value}`;
-
-        if (index === 1) {
-          html += `</td>`;
-          break; // top 2 suggestions only
-        }
-      }
-      html += `</tr>`;
-
-    }; // else grammar suggestion
+      errors_present = true;
+    }
   });
+  //alert(errors_present);
 
-  html += `</table>`;
+  if (errors_present) {
+    html += `<table>`
+    html += `<tr><th>word</th> <th>suggestions</th></tr>`
+    suggestions.forEach((item, i) => {
+      if (item.shortMessage == 'Spelling mistake') {
+        let user_phrase = item.context.text;
+
+        let word = user_phrase.slice(item.context.offset, item.context.offset+item.context.length);
+        //console.log(word);
+
+        html += `<tr>`;
+        html += `<td>${word}</td> `;
+
+        for (const [index, el] of item.replacements.entries()) {
+          //console.log(el);
+          if (index == 0) html += `<td>`;
+          if (index > 0) html += `, `;
+
+          html += `${el.value}`;
+
+          if (index === 1) {
+            html += `</td>`;
+            break; // top 2 suggestions only
+          }
+        }
+        html += `</tr>`;
+
+      }; // else grammar suggestion
+    });
+    html += `</table>`;
+  } else {
+    html += '<p> No spelling errors. Good job!</p>'
+  }
+
   let container = document.querySelector('.spelling_suggestions_container');
   container.innerHTML = html;
 }
 
 function spellCheckButtonResponseHandler(response) {
+  try {
+    var regex_words = new RegExp('\\w+', 'g');
+    //var phrase = 'testing tetadsf text # title $\alpha$ 1. hey 1. oh';
+    var word_array = response.text_content.match(regex_words);
+    phrase = ''
+    word_array.forEach((item, i) => {
+      phrase += item + ' '
+    });
 
-  var regex_words = new RegExp('\\w+', 'g');
-  //var phrase = 'testing tetadsf text # title $\alpha$ 1. hey 1. oh';
-  var word_array = response.text_content.match(regex_words);
-  phrase = ''
-  word_array.forEach((item, i) => {
-    phrase += item + ' '
-  });
+    // for debugging
+    //const div = document.createElement('div')
+    //div.textContent = phrase;
+    //document.body.appendChild(div)
 
-  // for debugging
-  //const div = document.createElement('div')
-  //div.textContent = phrase;
-  //document.body.appendChild(div)
-
-  chrome.storage.local.get(['api_key'], function(result) {
-    //alert(result.api_key);
-    xmlhttp_request(phrase, result.api_key);
-  });
+    chrome.storage.local.get(['api_key'], function(result) {
+      //alert(result.api_key);
+      xmlhttp_request(phrase, result.api_key);
+    });
+  } catch(error) {
+    alert('Error: do you have text/markdown cell selected?')
+  }
 
 }
 
