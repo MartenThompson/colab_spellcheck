@@ -92,7 +92,7 @@ function make_html(spell_check_api_response) {
     });
     html += `</table>`;
   } else {
-    html += '<p> No spelling errors. Good job!</p>'
+    html += '<p> No spelling errors in this cell. Good job!</p>'
   }
 
   let container = document.querySelector('.spelling_suggestions_container');
@@ -115,11 +115,13 @@ function spellCheckButtonResponseHandler(response) {
     //document.body.appendChild(div)
 
     chrome.storage.local.get(['api_key'], function(result) {
-      //alert(result.api_key);
+      if (typeof result.api_key == "undefined") {
+        alert("Missing API key. Please follow set-up instructions described in this extension's settings.");
+      }
       xmlhttp_request(phrase, result.api_key);
     });
   } catch(error) {
-    alert('Error: do you have text/markdown cell selected?')
+    alert('Error. Please make a text/markdown cell active (not code).')
   }
 
 }
