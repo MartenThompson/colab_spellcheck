@@ -35,7 +35,7 @@ The extension should automatically refresh on file updates.
 1. To deploy, go to the [chrome web store docs](https://developer.chrome.com/docs/webstore/publish/)
 
 
-### To-Do
+### To-Do's
 
 1. add memory meter/value? 
 1. does it make more sense to store dictionaries in chrome extension doc storage?
