@@ -23,7 +23,7 @@ The colab html is a mess
 
 1. Go to `chrome://extensions`
 1. Make sure "Developer Mode" is turned on
-1. Select "Load unpacked extensions" and then our "extension" folder
+1. Select "Load unpacked extensions" and then our `collab_spellcheck/extension` folder
 
 The extension should automatically refresh on file updates.
 
@@ -33,3 +33,9 @@ The extension should automatically refresh on file updates.
 
 1. Manifest v3 updates [here](https://developer.chrome.com/docs/extensions/mv3/intro/)
 1. To deploy, go to the [chrome web store docs](https://developer.chrome.com/docs/webstore/publish/)
+
+
+### To-Do
+
+1. add memory meter/value? 
+1. does it make more sense to store dictionaries in chrome extension doc storage?
