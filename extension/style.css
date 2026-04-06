@@ -29,6 +29,17 @@ img {
   padding-bottom: 0;
 }
 
+.dict-note {
+  color: #555;
+  font-size: 13px;
+  margin: 0 0 10px 0;
+}
+
+.loading-msg {
+  color: #555;
+  margin: 8px 0;
+}
+
 .logo-icon {
   vertical-align: text-bottom;
   margin-right: 12px;

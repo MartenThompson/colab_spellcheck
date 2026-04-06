@@ -14,37 +14,28 @@
   <div class="modal-header">
     <h1 class="logo">
       <img src="images/racoon_icon.png" alt="full sized icon" class="logo-icon">
-      Colab Spellcheck <span class="version">(0.1.2)</span>
-      <!--<img src="images/settings_icon.png" alt="settings icon" class="settings-icon">-->
-      <input type="image" title="Settings" src="images/settings_icon.png" class="settings-button" id="settings_button" /> <!-- name="saveForm"  -->
+      Colab Spellcheck <span class="version">(0.2.0)</span>
     </h1>
   </div>
 
   <div class="modal-content">
 
-    <div id="settings_pane" style="display:none">
-      <h2>Settings</h2>
-      <p> If you have not already done so, please sign up for GrammarBot <a href="https://www.grammarbot.io/signup" target="_blank">here</a>. Then, copy your GrammarBot API key below. You only have to do this once.
-      <form id="settings_form">
-        <label for="key">GrammarBot Key:</label>
-        <input type="text" id="key" name="key"><br><br>
-        <input type="submit" value="Save Key" class="flat_button" id="settings_submit_button">
-      </form>
-    </div>
+    <p class="dict-note">Offline spellcheck, English (US).</p>
 
-    <button class="flat_button" id="spell_check_button"> Check Active Cell</button>
+    <button class="flat_button" id="spell_check_button">Check Active Cell</button>
     <div class="spelling_suggestions_container"></div>
 
 
     <table>
     <tr>
-      <td><a class="footer_link" href="https://www.gnu.org/licenses/licenses.html", target="_blank">licensed under GPLv3</a></td>
-      <td id="footer_right"><a class="footer_link" href="https://github.com/MartenThompson/colab_spellcheck", target="_blank">source</a></td>
+      <td><a class="footer_link" href="https://www.gnu.org/licenses/licenses.html" target="_blank">licensed under GPLv3</a></td>
+      <td id="footer_right"><a class="footer_link" href="https://github.com/MartenThompson/colab_spellcheck" target="_blank">source</a></td>
     </tr>
     </table>
 
   </div>
-<script src="popup.js"></script>
+  <script src="bjspell/BJSpell.js"></script>
+  <script src="popup.js"></script>
 
 </body>
 </html>
