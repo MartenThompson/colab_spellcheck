@@ -63,21 +63,14 @@ img {
   margin: 0 0 12px 0;
   max-height: 160px;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 3px;
 }
 
 .personal-dict-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 8px;
-  border-bottom: 1px solid #eee;
+  padding: 4px 0;
   color: #333;
-}
-
-.personal-dict-item:last-child {
-  border-bottom: none;
 }
 
 .personal-dict-empty {
@@ -107,9 +100,16 @@ img {
   margin-bottom: 8px;
 }
 
-.add-personal-form label {
+.add-personal-form .add-word-label {
   width: 100%;
+  font-size: 14px;
+}
+
+.add-word-hint {
+  width: 100%;
+  margin: 4px 0 8px 0;
   font-size: 13px;
+  color: #555;
 }
 
 .add-personal-form input[type="text"] {
