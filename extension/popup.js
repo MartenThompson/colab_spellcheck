@@ -4,6 +4,39 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+let allowlistSet = null;
+let allowlistPromise = null;
+
+function allowlistUrl() {
+  return chrome.runtime.getURL('spell_allowlist.json');
+}
+
+function ensureAllowlist() {
+  if (!allowlistPromise) {
+    allowlistPromise = fetch(allowlistUrl())
+      .then(function (r) {
+        if (!r.ok) throw new Error('Allowlist HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (!Array.isArray(data)) {
+          throw new Error('spell_allowlist.json must be a JSON array of strings');
+        }
+        allowlistSet = new Set(
+          data.map(function (w) {
+            return String(w).toLowerCase();
+          })
+        );
+      });
+  }
+  return allowlistPromise;
+}
+
+function isAllowedWord(word) {
+  if (!allowlistSet) return false;
+  return allowlistSet.has(String(word).toLowerCase());
+}
+
 let denylistSet = null;
 let denylistPromise = null;
 
@@ -48,11 +81,12 @@ function suggestFiltered(checker, badWord, want) {
   return filterDeniedSuggestions(raw).slice(0, want);
 }
 
-function applySpellDenylist(checker) {
-  if (checker._spellDenylistApplied) return;
-  checker._spellDenylistApplied = true;
+function applySpellWordlists(checker) {
+  if (checker._spellWordlistsApplied) return;
+  checker._spellWordlistsApplied = true;
   const baseCheck = checker.check.bind(checker);
   checker.check = function (word) {
+    if (isAllowedWord(word)) return true;
     if (isDeniedWord(word)) return false;
     return baseCheck(word);
   };
@@ -134,10 +168,10 @@ function spellCheckResponseHandler(response) {
 
     container.innerHTML = '<p class="loading-msg">Working…</p>';
 
-    Promise.all([ensureChecker(), ensureDenylist()])
+    Promise.all([ensureChecker(), ensureDenylist(), ensureAllowlist()])
       .then(function (results) {
         const checker = results[0];
-        applySpellDenylist(checker);
+        applySpellWordlists(checker);
         const errors = collectSpellErrors(String(text), checker);
         renderSpellResults(errors);
       })
@@ -146,6 +180,8 @@ function spellCheckResponseHandler(response) {
         checkerPromise = null;
         denylistPromise = null;
         denylistSet = null;
+        allowlistPromise = null;
+        allowlistSet = null;
         container.innerHTML =
           '<p>Could not load the spell checker. Try reloading the extension at <code>chrome://extensions</code>.</p>';
       });
