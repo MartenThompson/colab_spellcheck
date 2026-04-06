@@ -13,13 +13,9 @@ Spellchecking runs **offline** in the extension popup using [BJSpell](https://gi
 
 TODO
 
-## BJSpell
-
-Upstream mirror: https://github.com/maheshmurag/bjspell  
-
-The vendored `BJSpell.js` states Lesser GPL in its file header.
-
 ## Development Notes
+
+### Local Dev
 
 Load the extension from source at `chrome://extensions` (Developer mode > Load unpacked > choose the `extension/` folder of this repo).
 
@@ -43,12 +39,18 @@ chrome.storage.local.clear(); // wipes all keys for this extension only
 
 Note that reloading the unpacked extension does not wipe Chrome storage. 
 
-## Publishing Notes
+### Publishing Notes
 
 https://chrome.google.com/webstore/devconsole/
 
 
-## Future Work
+### BJSpell
+
+Upstream mirror: https://github.com/maheshmurag/bjspell
+
+The vendored `BJSpell.js` states Lesser GPL in its file header.
+
+### Future Work
 
 The dictionary contains non-words as a result of being built from ordinary words, stems, and abbreviations. This is less then ideal when we use the dictionary to check spelling. To remediate, we could 
 
@@ -58,6 +60,6 @@ The dictionary contains non-words as a result of being built from ordinary words
 
 We chose 1, figuring 2 was risky (could break giant json blog) and 3 was a lot of work. But, the denylist is a crutch: we define a set of non-words to always flag when checking spelling and to remove from suggestions. 
 
-## TODO
+### TODO
 
 Pin old version and provide instructions so people can keep using it if they have a GrammarBot key (paid).
