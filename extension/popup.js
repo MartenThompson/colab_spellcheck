@@ -4,6 +4,60 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+let denylistSet = null;
+let denylistPromise = null;
+
+function denylistUrl() {
+  return chrome.runtime.getURL('spell_denylist.json');
+}
+
+function ensureDenylist() {
+  if (!denylistPromise) {
+    denylistPromise = fetch(denylistUrl())
+      .then(function (r) {
+        if (!r.ok) throw new Error('Denylist HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (!Array.isArray(data)) {
+          throw new Error('spell_denylist.json must be a JSON array of strings');
+        }
+        denylistSet = new Set(
+          data.map(function (w) {
+            return String(w).toLowerCase();
+          })
+        );
+      });
+  }
+  return denylistPromise;
+}
+
+function isDeniedWord(word) {
+  if (!denylistSet) return false;
+  return denylistSet.has(String(word).toLowerCase());
+}
+
+function filterDeniedSuggestions(suggestions) {
+  return suggestions.filter(function (s) {
+    return !isDeniedWord(s);
+  });
+}
+
+function suggestFiltered(checker, badWord, want) {
+  const raw = checker.suggest(badWord, Math.max(want * 12, 24));
+  return filterDeniedSuggestions(raw).slice(0, want);
+}
+
+function applySpellDenylist(checker) {
+  if (checker._spellDenylistApplied) return;
+  checker._spellDenylistApplied = true;
+  const baseCheck = checker.check.bind(checker);
+  checker.check = function (word) {
+    if (isDeniedWord(word)) return false;
+    return baseCheck(word);
+  };
+}
+
 let checkerPromise = null;
 
 function dictionaryUrl() {
@@ -37,7 +91,7 @@ function collectSpellErrors(text, checker) {
     const key = badWord.toLowerCase();
     if (!seen.has(key)) {
       seen.add(key);
-      const suggestions = checker.suggest(badWord, 2).slice(0, 2);
+      const suggestions = suggestFiltered(checker, badWord, 2);
       errors.push({ word: badWord, suggestions: suggestions });
     }
     return badWord;
@@ -80,14 +134,18 @@ function spellCheckResponseHandler(response) {
 
     container.innerHTML = '<p class="loading-msg">Working…</p>';
 
-    ensureChecker()
-      .then(function (checker) {
+    Promise.all([ensureChecker(), ensureDenylist()])
+      .then(function (results) {
+        const checker = results[0];
+        applySpellDenylist(checker);
         const errors = collectSpellErrors(String(text), checker);
         renderSpellResults(errors);
       })
       .catch(function (err) {
         console.error(err);
         checkerPromise = null;
+        denylistPromise = null;
+        denylistSet = null;
         container.innerHTML =
           '<p>Could not load the spell checker. Try reloading the extension at <code>chrome://extensions</code>.</p>';
       });
