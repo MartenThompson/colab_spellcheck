@@ -2,25 +2,62 @@
 
 This repo contains the code for a Chrome extension that spellchecks markdown cells in Google Colab. It is available for free on [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc).
 
-
+Spellchecking runs **offline** in the extension popup using [BJSpell](https://github.com/maheshmurag/bjspell) with a bundled English (US) Hunspell-derived dictionary. No API key or network access is required for checks.
 
 ## Set Up
 
-You must connect the extension to the GrammarBot API which does all the heavy lifting. You can get a limited-use key for free (no credit card required, thousands of monthly API calls). Please perform the following setup to use this extension:
+1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). 
+2. Open a Colab notebook, focus a text or markdown cell, and click **Check Active Cell** in the extension popup.
+
+## Usage 
+
+TODO
+
+## BJSpell
+
+Upstream mirror: https://github.com/maheshmurag/bjspell  
+
+The vendored `BJSpell.js` states Lesser GPL in its file header.
+
+## Development Notes
+
+Load the extension from source at `chrome://extensions` (Developer mode > Load unpacked > choose the `extension/` folder of this repo).
+
+Then, use the dashboard at `chrome://extensions/` to reload the extension while developing.
+
+Logs from `popup.js` appear in the extension's DevTools (right-click inside the popup > Inspect), not in the page console (F12 on Colab). 
+
+You can also inspect the extension's local files via the extension's DevTools by running 
+
+```
+chrome.storage.local.get(null, console.log);
+```
+
+Other usefule commands
+
+```
+chrome.storage.local.set({ personalDictionary: ['colab', 'myname'] }, () => console.log('ok'));
+chrome.storage.local.remove('personalDictionary');
+chrome.storage.local.clear(); // wipes all keys for this extension only
+```
+
+Note that reloading the unpacked extension does not wipe Chrome storage. 
+
+## Publishing Notes
+
+https://chrome.google.com/webstore/devconsole/
 
 
-1. Add this extension to your browser from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc).
-2. Sign up for GrammarBot [here](https://www.grammarbot.io/signup).
-3. Copy your GrammarBot API key.
-4. In this extension, go to Settings and enter your key.
-5. Done!
+## Future Work
 
-Thank you for your interest!
+The dictionary contains non-words as a result of being built from ordinary words, stems, and abbreviations. This is less then ideal when we use the dictionary to check spelling. To remediate, we could 
 
-## Notes for Local Dev
+1. denylist non-words,
+2. modify dictionary in place, or
+3. modify dictionary complilation such that it no longer creates non-words.
 
-Below are notes on my way of working; feel free to refernce if you choose to hack on this or a similar project of your own.
+We chose 1, figuring 2 was risky (could break giant json blog) and 3 was a lot of work. But, the denylist is a crutch: we define a set of non-words to always flag when checking spelling and to remove from suggestions. 
 
-Chrome's extension dashboard can be found at `chrome://extensions/`. Use this to reload the extension as you develop it. 
+## TODO
 
-Note that extension logs (e.g. `console.log()` in `popup.js`) won't show up in Chrome's developer tools (F12). Instead, they show up in a popup pane accessed by right clicking inside the extension and chosing Inspect. Errors will also show up at `chrome://extensions/` confusingly.
+Pin old version and provide instructions so people can keep using it if they have a GrammarBot key (paid).
