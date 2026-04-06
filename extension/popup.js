@@ -1,6 +1,7 @@
 // show/hide settings div. hide/show the spell check button.
 // don't do anything else in here; it is called elsewhere.
 function settingsClick() {
+  console.log('settingsClick');
   let settings_pane = document.querySelector('#settings_pane');
   let sc_button = document.querySelector('#spell_check_button');
 

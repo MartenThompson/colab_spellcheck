@@ -16,3 +16,11 @@ You must connect the extension to the GrammarBot API which does all the heavy li
 5. Done!
 
 Thank you for your interest!
+
+## Notes for Local Dev
+
+Below are notes on my way of working; feel free to refernce if you choose to hack on this or a similar project of your own.
+
+Chrome's extension dashboard can be found at `chrome://extensions/`. Use this to reload the extension as you develop it. 
+
+Note that extension logs (e.g. `console.log()` in `popup.js`) won't show up in Chrome's developer tools (F12). Instead, they show up in a popup pane accessed by right clicking inside the extension and chosing Inspect. Errors will also show up at `chrome://extensions/` confusingly.
