@@ -13,16 +13,31 @@
 <body>
   <div class="modal-header">
     <h1 class="logo">
+      <button type="button" class="settings-gear" id="settings_button" title="Settings" aria-label="Settings">&#x2699;</button>
       <img src="images/racoon_icon.png" alt="full sized icon" class="logo-icon">
-      Colab Spellcheck <span class="version">(0.2.0)</span>
+      Colab Spellcheck <span class="version">(0.3.0)</span>
     </h1>
   </div>
 
   <div class="modal-content">
 
-    <button class="flat_button" id="spell_check_button">Check Active Cell</button>
-    <div class="spelling_suggestions_container"></div>
+    <div id="main_view" class="main-view">
+      <button class="flat_button" id="spell_check_button">Check Active Cell</button>
+      <div class="spelling_suggestions_container"></div>
+    </div>
 
+    <div id="settings_pane" class="settings-pane" style="display:none">
+      <h2>Settings</h2>
+      <h3 class="settings-subheading">Personal dictionary</h3>
+      <p class="settings-hint">Limit 10,000 words.</p>
+      <ul id="personal_dictionary_list" class="personal-dict-list"></ul>
+      <p class="settings-hint">Words must be letters only (A–Z), up to 48 characters.</p>
+      <form id="add_personal_word_form" class="add-personal-form">
+        <label for="add_personal_word_input">Add word</label>
+        <input type="text" id="add_personal_word_input" name="word" maxlength="48" autocomplete="off" spellcheck="false">
+        <button type="submit" class="flat_button flat_button_small">Add</button>
+      </form>
+    </div>
 
     <table>
     <tr>
