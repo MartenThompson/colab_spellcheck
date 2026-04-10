@@ -6,12 +6,13 @@ Spellchecking runs **offline** in the extension popup using [BJSpell](https://gi
 
 ## Set Up
 
-1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). 
-2. Open a Colab notebook, focus a text or markdown cell, and click **Check Active Cell** in the extension popup.
+Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). That is it! No login, no account, all local.
 
 ## Usage 
 
-TODO
+Open a Colab notebook, click a markdown cell, and click **Check Active Cell** in the extension popup. The extension will create a table of misspelled words and suggestions. 
+
+If the extension registers a real word as misspelled, you may click the word in the extension and add it to your personal dictionary. Manage your personal dictionary within settings. 
 
 ## Development Notes
 
@@ -38,6 +39,12 @@ chrome.storage.local.clear(); // wipes all keys for this extension only
 ```
 
 Note that reloading the unpacked extension does not wipe Chrome storage. 
+
+Also, the extension is registered to run only on domains like
+```
+"matches": ["https://colab.research.google.com/*"] # see manifest.json
+```
+
 
 ### Publishing Notes
 
