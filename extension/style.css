@@ -27,8 +27,8 @@ img {
 
 .settings-gear {
   float: right;
-  margin: 0 0 4px 8px;
-  padding: 2px 8px;
+  margin: 0 0 0px 8px;
+  padding: 0px 8px;
   font-size: 28px;
   line-height: 1;
   border: none;
@@ -119,18 +119,13 @@ img {
   font-size: 14px;
 }
 
-.flat_button_small {
-  font-size: 14px;
-  padding: 6px 12px;
-}
-
 .learn-word-btn {
   background: none;
   border: none;
   padding: 0;
   margin: 0;
   font: inherit;
-  color: #2e7d32;
+  color: #F9423A;
   text-decoration: underline;
   cursor: pointer;
   text-align: left;
@@ -169,7 +164,7 @@ img {
   margin-right: 12px;
 }
 
-.flat_button {
+.flat-button {
   background-color: #F59C09;
   border: 2px solid #F59C09;
   color: white;
@@ -179,6 +174,11 @@ img {
   text-decoration: none;
   font-size: 1.2em;
   cursor: pointer;
+}
+
+.flat-button-small {
+  font-size: 14px;
+  padding: 6px;
 }
 
 .settings-button {

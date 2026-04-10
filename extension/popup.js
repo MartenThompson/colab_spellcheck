@@ -386,7 +386,7 @@ function onSuggestionsContainerClick(event) {
   }
   if (word === '') return;
 
-  if (!confirm('Learn spelling for "' + word + '"?')) return;
+  if (!confirm('Learn spelling for "' + word + '"?\nYou can manage your personal dictionary in the settings pane.')) return;
 
   if (!isValidPersonalWord(word)) {
     alert(
