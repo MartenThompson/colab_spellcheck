@@ -6,15 +6,21 @@ No API key or network access is required to function. Spellchecking runs **offli
 
 ## Set Up
 
-Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). That is it! No login, no account, all local.
+Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). That is it! No login, no network, all local.
 
 ## Usage 
 
-Open a Colab notebook, click a markdown cell, and click **Check Active Cell** in the extension popup. The extension will create a table of misspelled words and suggestions. 
+Open a Colab notebook, click a markdown cell, and click **Check Active Cell** in the extension popup. The extension will create a table of misspelled words (if present) and suggestions. 
 
-If the extension registers a real word as misspelled, you may click the word in the extension and add it to your personal dictionary. Manage your personal dictionary within settings. 
+If the extension registers a real word as misspelled, you may click the word in the extension and add it to your personal dictionary. Manage your personal dictionary within settings <img width="16" height="16" alt="settings_icon" src="https://github.com/user-attachments/assets/325b9db9-5e01-4a02-a551-f153ef84e1e1" />. 
 
 ## Development Notes
+
+The following notes pertain to the development of this extension and are not required for its use.
+
+### Publishing Notes
+
+https://chrome.google.com/webstore/devconsole/
 
 ### Local Dev
 
@@ -46,10 +52,6 @@ Also, the extension is registered to run only on domains like
 ```
 
 
-### Publishing Notes
-
-https://chrome.google.com/webstore/devconsole/
-
 
 ### BJSpell
 
@@ -70,3 +72,5 @@ We chose 1, figuring 2 was risky (could break giant json blog) and 3 was a lot o
 ### TODO
 
 Pin old version and provide instructions so people can keep using it if they have a GrammarBot key (paid).
+
+Make feedback templates or GitHub issues to organize the improvement of non-words being deny listed and real words allowed.
