@@ -27,9 +27,8 @@ img {
 
 .settings-gear {
   float: right;
-  margin: 0 0 0px 8px;
-  padding: 0px 8px;
-  font-size: 28px;
+  margin: 0 0 0 8px;
+  padding: 4px 8px;
   line-height: 1;
   border: none;
   background: transparent;
@@ -37,8 +36,27 @@ img {
   color: #888;
 }
 
-.settings-gear:hover {
-  color: #F59C09;
+.settings-gear-img {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.settings-home-char {
+  display: inline-block;
+  font-size: 22px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.settings-gear:hover .settings-home-char {
+  opacity: 0.85;
+}
+
+.settings-gear:hover .settings-gear-img {
+  opacity: 0.85;
 }
 
 .settings-pane {

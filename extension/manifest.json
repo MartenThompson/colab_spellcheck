@@ -13,7 +13,7 @@
       "24": "images/app_icon_24.png",
       "32": "images/app_icon_32.png"
     },
-    "default_title": "colab spellcheck",
+    "default_title": "Colab Spellcheck",
     "default_popup": "popup.html"
   },
   "permissions": ["activeTab", "storage"],

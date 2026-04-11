@@ -285,14 +285,21 @@ function spellCheckResponseHandler(response) {
   }
 }
 
+function settingsGearImgHtml() {
+  return (
+    '<img src="images/settings_icon.png" alt="" class="settings-gear-img" width="32" height="32">'
+  );
+}
+
 function setHeaderNavButton(showingSettings) {
   const btn = document.getElementById('settings_button');
   if (showingSettings) {
-    btn.textContent = '\u2302';
+    btn.innerHTML =
+      '<span class="settings-home-char" aria-hidden="true">\u2302</span>';
     btn.title = 'Home';
     btn.setAttribute('aria-label', 'Home');
   } else {
-    btn.textContent = '\u2699';
+    btn.innerHTML = settingsGearImgHtml();
     btn.title = 'Settings';
     btn.setAttribute('aria-label', 'Settings');
   }
