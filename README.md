@@ -6,13 +6,13 @@ No API key or network access is required to function. Spellchecking runs **offli
 
 ## Set Up
 
-Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). That is it! No login, no network, all local.
+Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc). That's it! No login, no network, all local.
 
-## Usage 
+## Usage
 
 Open a Colab notebook, click a markdown cell, and click **Check Active Cell** in the extension popup. The extension will create a table of misspelled words (if present) and suggestions. 
 
-If the extension registers a real word as misspelled, you may click the word in the extension and add it to your personal dictionary. Manage your personal dictionary within settings <img width="16" height="16" alt="settings_icon" src="https://github.com/user-attachments/assets/325b9db9-5e01-4a02-a551-f153ef84e1e1" />. 
+If the extension registers a real word as misspelled, you may click the word in the extension and add it to your personal dictionary. Manage your personal dictionary in the settings <img width="16" height="16" alt="Settings" src="https://github.com/user-attachments/assets/325b9db9-5e01-4a02-a551-f153ef84e1e1" />. 
 
 ## Development Notes
 
@@ -36,11 +36,11 @@ You can also inspect the extension's local files via the extension's DevTools by
 chrome.storage.local.get(null, console.log);
 ```
 
-Other usefule commands
+Other useful commands
 
 ```
-chrome.storage.local.set({ personalDictionary: ['colab', 'myname'] }, () => console.log('ok'));
-chrome.storage.local.remove('personalDictionary');
+chrome.storage.local.set({ personal_dictionary: ['colab', 'myname'] }, () => console.log('ok'));
+chrome.storage.local.remove('personal_dictionary');
 chrome.storage.local.clear(); // wipes all keys for this extension only
 ```
 
@@ -61,16 +61,16 @@ The vendored `BJSpell.js` states Lesser GPL in its file header.
 
 ### Future Work
 
-The dictionary contains non-words as a result of being built from ordinary words, stems, and abbreviations. This is less then ideal when we use the dictionary to check spelling. To remediate, we could 
+The dictionary contains non-words as a result of being built from ordinary words, stems, and abbreviations. This is less than ideal when we use the dictionary to check spelling. To remediate, we could 
 
 1. denylist non-words,
 2. modify dictionary in place, or
-3. modify dictionary complilation such that it no longer creates non-words.
+3. modify dictionary compilation such that it no longer creates non-words.
 
-We chose 1, figuring 2 was risky (could break giant json blog) and 3 was a lot of work. But, the denylist is a crutch: we define a set of non-words to always flag when checking spelling and to remove from suggestions. 
+We chose 1, figuring 2 was risky (could break a giant JSON blob) and 3 was a lot of work. The denylist is a crutch: we define a set of non-words to always flag when checking spelling and to remove from suggestions. 
 
 ### TODO
 
 Pin old version and provide instructions so people can keep using it if they have a GrammarBot key (paid).
 
-Make feedback templates or GitHub issues to organize the improvement of non-words being deny listed and real words allowed.
+Make feedback templates or GitHub issues to organize the improvement of which non-words belong on the denylist and which real words are allowed.
