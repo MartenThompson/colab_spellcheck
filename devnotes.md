@@ -24,6 +24,8 @@ Also, create release in the repo of the codebase at the time of zipping.
 
 ### Local Dev
 
+Note to self: you're using your secondary gmail account for publishing and dev testing. Your primary email instead is a typical user, getting the extension from the Chrome webstore.
+
 Load the extension from source at `chrome://extensions` (Developer mode > Load unpacked > choose the `extension/` folder of this repo).
 
 Then, use the dashboard at `chrome://extensions/` to reload the extension while developing.
