@@ -10,7 +10,6 @@ Follow [semver](https://semver.org/).
 
 Publishing steps
 
-
 1. Go to the [Chrome webstore](https://chrome.google.com/webstore/devconsole/).
 1. Update "Store listing" with descirption and screenshots 
     1. Take `640x400` screenshots of the extension. I find it easiest to use `cmd+shft+5` to set a consistent window.
@@ -19,7 +18,9 @@ Publishing steps
     1. Zip the `extension/` directory: open `extension`, select everything inside, compress into `colab-spellcheck-0.0.0.zip` updating semver accordingly.
 1. Submit for review.
 
-Also, create release in the repo of the codebase at the time of zipping. 
+Also, create release in GitHub of the codebase at the time of zipping. 
+
+Then, as you develop, you can view the most recent release > click "x commits to main since this release" > inspect the files that have changed. Any changes to the contents of `extension/` should warrent a new release.
 
 
 ### Local Dev
@@ -53,6 +54,34 @@ Also, the extension is registered to run only on domains like
 "matches": ["https://colab.research.google.com/*"] # see manifest.json
 ```
 
+If you want to see if a specific word will be considered correctly/incorrectly spelled, run
+
+```
+Promise.all([
+  (async () => {
+    const u = chrome.runtime.getURL('dictionaries/en_US.js');
+    return new Promise((res) => BJSpell(u, function(){ res(this); }));
+  })(),
+]).then(([checker]) => {
+  console.log('Checking myword', checker.check('myword'));
+  console.log('Checking otherword', checker.check('otherword'));
+});
+```
+
+#### Testing 
+
+Tests run push as well as on pull requests. 
+
+To run tests locally
+
+```
+npm ci      <-- NOT npm install -g
+npm test
+
+```
+
+
+Speed Testing: I copied the entire text of [Huckleberry Finn](https://gutenberg.org/files/76/76-0.txt) (~100k words) as well as [The Narrative of the Life of Frederick Douglass](https://gutenberg.org/files/23/23-0.txt) (~225k) into a markdown cell and the extension was able to spell check each in ~3 seconds. That seems sufficiently quick! TODO: add as test? 
 
 ### Future Work
 
