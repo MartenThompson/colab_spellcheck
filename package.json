@@ -1,0 +1,25 @@
+{
+  "name": "colab_spellcheck",
+  "version": "1.0.0",
+  "description": "<img width=\"75\" alt=\"extension logo\" src=\"extension/images/app_icon.png\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartenThompson/colab_spellcheck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MartenThompson/colab_spellcheck/issues"
+  },
+  "homepage": "https://github.com/MartenThompson/colab_spellcheck#readme",
+  "devDependencies": {
+    "jsdom": "^29.0.2",
+    "vitest": "^4.1.4"
+  }
+}

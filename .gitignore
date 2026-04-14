@@ -1,3 +1,5 @@
 .DS_Store
 
 local_assets/
+
+node_modules/
