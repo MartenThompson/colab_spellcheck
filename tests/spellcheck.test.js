@@ -102,6 +102,53 @@ describe('spellcheck: valid words', () => {
       expect(checkWord(String(w).toUpperCase()), w).toBe(true);
     }
   });
+
+  test('common contractions with straight apostrophe are correct', () => {
+    const ok = [
+      "didn't",
+      "couldn't",
+      "wouldn't",
+      "shouldn't",
+      "isn't",
+      "aren't",
+      "wasn't",
+      "weren't",
+      "haven't",
+      "hasn't",
+      "hadn't",
+      "won't",
+      "can't",
+      "don't",
+      "doesn't",
+      "it's",
+      "that's",
+      "what's",
+      "who's",
+      "there's",
+      "here's",
+      "you're",
+      "we're",
+      "they're",
+      "I've",
+      "you've",
+      "we've",
+      "they've",
+      "I'll",
+      "you'll",
+      "he'll",
+      "she'll",
+      "we'll",
+      "they'll",
+      "I'd",
+      "you'd",
+      "he'd",
+      "she'd",
+      "we'd",
+      "they'd",
+    ];
+    const bad = ok.filter((w) => !checkWord(w));
+    expect(bad).toEqual([]);
+  });
 });
 
 describe('spellcheck: non-words', () => {
