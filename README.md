@@ -1,5 +1,7 @@
 # Google Colab Spellcheck Extension
 
+<img width="75" alt="extension logo" src="extension/images/app_icon.png">
+
 This repo contains the code for a Chrome extension that spellchecks markdown cells in Google Colab. The extension is available for free on [Chrome Web Store](https://chrome.google.com/webstore/detail/colab-spellcheck/ibnfomklkmoocmbmjlddagkippmndioc).
 
 No API key or network access is required to function. Spellchecking runs completely **offline, locally** in the extension using [BJSpell](https://github.com/maheshmurag/bjspell) with a bundled English (US) Hunspell-derived dictionary. This approach is lightweight, but imperfect. Please use the personal dictionary feature to store any valid words this extension initially considers non-words. 
