@@ -5,7 +5,22 @@ The following notes pertain to the development of this extension and are not req
 
 ### Publishing Notes
 
-https://chrome.google.com/webstore/devconsole/
+Follow [semver](https://semver.org/).
+
+
+Publishing steps
+
+
+1. Go to the [Chrome webstore](https://chrome.google.com/webstore/devconsole/).
+1. Update "Store listing" with descirption and screenshots 
+    1. Take `640x400` screenshots of the extension. I find it easiest to use `cmd+shft+5` to set a consistent window.
+1. Update Permissions and Distribution if necessary.
+1. Update the Package
+    1. Zip the `extension/` directory: open `extension`, select everything inside, compress into `colab-spellcheck-0.0.0.zip` updating semver accordingly.
+1. Submit for review.
+
+Also, create release in the repo of the codebase at the time of zipping. 
+
 
 ### Local Dev
 
