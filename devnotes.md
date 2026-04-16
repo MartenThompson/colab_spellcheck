@@ -5,7 +5,11 @@ The following notes pertain to the development of this extension and are not req
 
 ### Publishing Notes
 
-Follow [semver](https://semver.org/).
+Bumping version number
+
+1. Follow [semver](https://semver.org/).
+1. Update version number in `manifest.json`, `popup.html`, and `package.json`. 
+1. Do not touch `package-lock.json`. Instead, run `npm install` and `npm test` to regenerate and use it. 
 
 
 Publishing steps
@@ -75,11 +79,12 @@ Tests run push as well as on pull requests.
 To run tests locally
 
 ```
-npm ci      <-- NOT npm install -g
+npm ci      
 npm test
 
 ```
 
+You could run `npm install` then `npm test` if you wanted to update the lockfile. Otherwise, `npm ci` uses the lockfile as is. 
 
 Speed Testing: I copied the entire text of [Huckleberry Finn](https://gutenberg.org/files/76/76-0.txt) (~100k words) as well as [The Narrative of the Life of Frederick Douglass](https://gutenberg.org/files/23/23-0.txt) (~225k) into a markdown cell and the extension was able to spell check each in ~3 seconds. That seems sufficiently quick! TODO: add as test? 
 

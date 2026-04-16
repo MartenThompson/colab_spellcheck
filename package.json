@@ -1,6 +1,6 @@
 {
   "name": "colab_spellcheck",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "<img width=\"75\" alt=\"extension logo\" src=\"extension/images/app_icon.png\">",
   "main": "index.js",
   "scripts": {
