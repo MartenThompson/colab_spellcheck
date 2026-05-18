@@ -20,6 +20,7 @@ Publishing steps
 1. Update Permissions and Distribution if necessary.
 1. Update the Package
     1. Zip the `extension/` directory: open `extension`, select everything inside, compress into `colab-spellcheck-0.0.0.zip` updating semver accordingly.
+    1. Upload the zip file at Package > Uplad Package.
 1. Submit for review.
 
 Also, create release in GitHub of the codebase at the time of zipping. 
@@ -126,3 +127,24 @@ Might be worth only looking at the 'cell text focused' cell only initially. That
 Seems like we are going to need DOM access for text cells. From my cursory review of this, it seems like content scripts may be the way to do this?
 
 https://developer.chrome.com/docs/extensions/mv3/content_scripts/
+
+### In-notebook highlights (rendered markdown only)
+
+The content script wraps misspellings in `<mark class="colab-spell-err">` inside the focused text cell’s `.markdown` subtree **only when the cell is not in markdown edit mode**.
+
+Heuristic for **editing** vs **rendered** (see `extension/inject.js`):
+
+- **Editing:** a visible `.monaco-editor`, or visible `textarea.inputarea`, or visible `.CodeMirror` inside the same `.cell.text` cell.
+- **Rendered:** `.markdown` is visible and none of those editing surfaces are visible.
+
+Highlights are skipped entirely while editing so we do not fight Monaco. A `MutationObserver` on the focused cell clears marks when the DOM flips to edit mode.
+
+Messaging: after `SpellcheckEngine.checkText` in the popup, the popup sends `{ type: 'COLAB_SPELLCHECK_HIGHLIGHT', errors }` to the active tab; before each run it sends `{ type: 'COLAB_SPELLCHECK_CLEAR' }`. Text inside `md-icon-button`, toolbars, `script`, `style`, `svg`, and `math` is not wrapped (avoids section-collapse chrome).
+
+**Manual QA checklist**
+
+1. Text cell in **rendered** mode: run spell check; misspellings get a red underline / tinted mark in the cell and the popup table.
+2. Click **Edit** on the same cell: marks should disappear; no marks while typing.
+3. Leave **rendered** mode again and run spell check: marks reappear for current errors.
+4. Try Colab **dark** theme: marks should stay readable.
+5. Focus another cell and spell check: previous cell’s marks are cleared at the start of the new run.

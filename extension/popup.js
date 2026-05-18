@@ -26,18 +26,45 @@ function renderSpellResults(errors) {
   container.innerHTML = html;
 }
 
-function spellCheckClick() {
-  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, 'please spell check', spellCheckResponseHandler);
+function sendHighlightToTab(tabId, errors) {
+  if (tabId == null) return;
+  chrome.tabs.sendMessage(tabId, { type: 'COLAB_SPELLCHECK_HIGHLIGHT', errors: errors || [] }, function () {
+    void chrome.runtime.lastError;
   });
 }
 
-function spellCheckResponseHandler(response) {
+function spellCheckClick() {
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    if (!tabs || !tabs[0]) return;
+    const tabId = tabs[0].id;
+    chrome.tabs.sendMessage(tabId, { type: 'COLAB_SPELLCHECK_CLEAR' }, function () {
+      void chrome.runtime.lastError;
+      chrome.tabs.sendMessage(tabId, 'please spell check', function (response) {
+        if (chrome.runtime.lastError) {
+          const container = document.querySelector('.spelling_suggestions_container');
+          container.innerHTML =
+            '<p>Could not reach this tab. Stay on Colab, reload the notebook, and try again.</p>';
+          sendHighlightToTab(tabId, []);
+          return;
+        }
+        spellCheckResponseHandler(response, tabId);
+      });
+    });
+  });
+}
+
+function spellCheckResponseHandler(response, tabId) {
   const container = document.querySelector('.spelling_suggestions_container');
   try {
+    if (!response) {
+      container.innerHTML = '<p>No response from the page. Reload the notebook and try again.</p>';
+      sendHighlightToTab(tabId, []);
+      return;
+    }
     const text = response.text_content;
     if (text == null || String(text).trim() === '') {
       container.innerHTML = '<p>No text found in this cell.</p>';
+      sendHighlightToTab(tabId, []);
       return;
     }
 
@@ -46,14 +73,17 @@ function spellCheckResponseHandler(response) {
     SpellcheckEngine.checkText(String(text))
       .then(function (errors) {
         renderSpellResults(errors);
+        sendHighlightToTab(tabId, errors);
       })
       .catch(function (err) {
         console.error(err);
         container.innerHTML =
           '<p>Could not load the spell checker. Try reloading the extension at <code>chrome://extensions</code>.</p>';
+        sendHighlightToTab(tabId, []);
       });
   } catch (error) {
     alert('Error. Please make a text/markdown cell active (not code).');
+    sendHighlightToTab(tabId, []);
   }
 }
 

@@ -1,0 +1,17 @@
+/* In-notebook misspelling marks (rendered markdown only). Works in Colab light/dark. */
+mark.colab-spell-err {
+  background-color: rgba(255, 80, 80, 0.22);
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(200, 40, 40, 0.85);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+html[theme='dark'] mark.colab-spell-err,
+html[theme='dark'] body mark.colab-spell-err {
+  background-color: rgba(255, 120, 120, 0.18);
+  text-decoration-color: rgba(255, 160, 160, 0.9);
+}

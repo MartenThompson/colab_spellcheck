@@ -20,7 +20,8 @@
   "content_scripts" : [
     {
       "matches": ["https://colab.research.google.com/*"],
-      "js": ["inject.js"]
+      "js": ["inject.js"],
+      "css": ["highlight.css"]
     }
   ]
 }
